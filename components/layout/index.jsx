@@ -61,7 +61,7 @@ function Layout(props) {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
   <div className="container-fluid">
     <Link href="/">
-    <a className="navbar-brand" >Index</a>
+    <span className="navbar-brand" >Index</span>
     </Link>
   
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,12 +71,12 @@ function Layout(props) {
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
         <Link href="/cat">
-          <a className={router.pathname==='/cat'? 'nav-link active':'nav-link ' } aria-current="page" >Cat</a>
+          <span className={router.pathname==='/cat'? 'nav-link active':'nav-link ' } aria-current="page" >Cat</span>
           </Link>
         </li>
         <li className="nav-item">
         <Link href="/about">
-        <a className={router.pathname==='/about'? 'nav-link active':'nav-link ' } href="/about">About</a>
+        <span className={router.pathname==='/about'? 'nav-link active':'nav-link ' } href="/about">About</span>
         </Link>
   
         </li>

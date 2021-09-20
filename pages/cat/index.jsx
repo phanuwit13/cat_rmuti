@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React,{useEffect,useState} from 'react'
 import {action} from '/actions'
+import Image from 'next/image'
 
  function Cat() {
 
@@ -42,7 +43,7 @@ import {action} from '/actions'
 dogShow.map((item,index)=>{
   return(
     <div key={index} className="card" style={{width:"18rem"}}>
-    <img src={item.image.url} className="card-img-top" alt="..." />
+    <Image width="100%" height="100%" layout="responsive" objectFit="contain" src={item.image.url} className="card-img-top" alt="cat img" />
     <div className="card-body">
       <div>
         <span>Name</span> : <span>{item.name}</span>
