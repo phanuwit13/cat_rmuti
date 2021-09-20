@@ -1,10 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import {action}  from '../../actions';
 
 function Layout(props) {
 
+  const [username,setUsername]=useState('')
+  const [password,setPassword]=useState('')
+  const [disableLogin,setDisableLogin]=useState(true)
+  const [checkLogin,setCheckLogin]=useState(false)
+  const [firstName,setFirstName]=useState('')
+  const [lastName,setLastname]=useState('')
+
+
+
+
+
   const router = useRouter()
+
+  const handleLogin=async()=>{
+    let response = await action.Login(username,password)
+    if(response.success){
+      window.localStorage.setItem('user',JSON.stringify(response.data))
+    }else{
+      alert(response.message)
+    }
+    
+    OncheckLogin()
+  }
+
+  useEffect(()=>{
+    if(username !== '' &&password!== '' ){
+      setDisableLogin(false)
+    }else{
+      setDisableLogin(true)
+    }
+
+  },[username,password])
+
+  const OncheckLogin = ()=>{
+    let user = JSON.parse(window.localStorage.getItem('user'))
+    if(user){
+      setFirstName(user.firstName)
+      setLastname(user.lastName)
+      setCheckLogin(true)
+    }else{
+      setCheckLogin(false)
+    }
+  }
+
+  useEffect(()=>{
+    OncheckLogin()
+  },[])
+
 
   return (
     <div>
@@ -33,10 +81,15 @@ function Layout(props) {
   
         </li>
       </ul>
-      {/* <form className="d-flex">
+      <div className="d-flex">
+        {checkLogin ? (<><span>{firstName+" "+lastName}</span> <button className="btn btn-outline-success" onClick={()=>{window.localStorage.clear();OncheckLogin()}} >LogOut</button></>):
+        <>
+        <input className="form-control me-2" value={username} onChange={(e)=>{setUsername(e.target.value)}} type="text" placeholder="username" aria-label="Search" />
+      <input className="form-control me-2"  value={password} onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder="password" aria-label="Search" />
+      <button disabled={disableLogin} className="btn btn-outline-success" onClick={()=>{handleLogin()}} >Login</button>
+        </>}
       
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form> */}
+    </div>
     </div>
   </div>
 </nav>
